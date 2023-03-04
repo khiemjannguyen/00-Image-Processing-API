@@ -6,9 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = (0, express_1.default)();
 const port = 3000;
-app.get('/api', (req, res) => {
-    res.send('server working');
+const images = '/images';
+app.get("/api", (req, res) => {
+    res.send("Hello, world!");
 });
+app.use(express_1.default.static('public'));
+app.use('/images', express_1.default.static('images'));
 app.listen(port, () => {
-    console.log(`server started at hhtp://localhost:${port}`);
+    console.log(`server started at localhost:${port}`);
 });
