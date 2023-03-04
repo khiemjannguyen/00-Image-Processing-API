@@ -1,0 +1,11 @@
+{
+    "spec dir": "dist/tests",
+    "spec files": [
+        "**/*[sS] pec. is"
+    ], 
+    "helpers": [
+        "helpers/**/*.is"
+    ], 
+    "stopSpecOnExpectationFailure": false,
+    "random": false
+}
