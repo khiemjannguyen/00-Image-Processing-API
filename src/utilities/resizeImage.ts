@@ -1,17 +1,20 @@
 import sharp from "sharp";
 
-const imageIn = './images/fjord.jpg'
-const imageOut = './images/fjord1.jpg'
+const imageFolder = './images';
 
-const resizeImage = (width: number, height: number) => {
+const resizeImage = (name: string, width: number, height: number) => {
     try {
-        sharp(imageIn)
+        sharp(imageFolder + `/${name}`)
         .resize({
             width: width,
             height: height
         })
-        .toFile(imageOut);
+        .toFile(imageFolder + `/${name}_resized`);
+        return true
     } catch (error) {
         console.log(error);
+        return false
     }
 }
+
+export default resizeImage
