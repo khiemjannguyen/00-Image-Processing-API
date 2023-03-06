@@ -1,12 +1,13 @@
 import express from "express";
-import sharp from "sharp";
+import routes from "./routes/api";
+import resizeImage from "./utilities/resizeImage";
 
 const app = express();
-
 const port = 3000;
 
-app.use(express.static('public')); 
-app.use('/images', express.static('images'));
+const imageName = 'fjord.jpg';
+
+app.use('/api', routes)
 
 app.listen(port, () => {
   console.log(`server started at localhost:${port}`);
