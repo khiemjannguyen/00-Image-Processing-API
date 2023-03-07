@@ -13,6 +13,7 @@ const createResizedImage = (fileName, height, width) => {
     const fullResizedImagePath = path_1.default.join('./images', 'resized', `${fileName.split('.')[0]}_${height}_${width}.jpg`);
     try {
         if (fs_1.default.existsSync(fullImagePath) && !fs_1.default.existsSync(fullResizedImagePath)) {
+            console.log('Create a new resized image');
             (0, sharp_1.default)(fullImagePath)
                 .resize(height, width)
                 .toFile(fullResizedImagePath);

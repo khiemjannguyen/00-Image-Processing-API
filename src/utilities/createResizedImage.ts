@@ -5,14 +5,15 @@ import fs from 'fs';
 const imageOriginalFolder = './images/original';
 const imageResizedFolder = './images/resized';
 
-const createResizedImage = (fileName: string, height: number, width: number) => {
+const createResizedImage = async (fileName: string, height: number, width: number) => {
 
     const fullImagePath = path.join('./images', 'original', fileName);
     const fullResizedImagePath = path.join('./images', 'resized', `${fileName.split('.')[0]}_${height}_${width}.jpg`)
     
     try {
       if (fs.existsSync(fullImagePath) && !fs.existsSync(fullResizedImagePath)){
-        sharp(fullImagePath)
+        console.log('Create a new resized image')
+        await sharp(fullImagePath)
         .resize(
           height,
           width
