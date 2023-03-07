@@ -6,7 +6,6 @@ const images = express.Router();
 
 images.get('/', async (req, res) => {
   try {
-
     if (!req.query.filename || !req.query.height || !req.query.width) {
       res.status(400).send('URL contains invalid filename, height or width params!');
       return;
@@ -27,21 +26,16 @@ images.get('/', async (req, res) => {
           console.error
           res.status(500).send('Error occured while processing image');
         });
-
     } else if (!resizedImagePath) {
       res.status(404).send('Given image path does not exist');
       return;
     }
-    
   } catch (error) {
     if (!req.query.filename || !req.query.height || !req.query.width) {
         res.status(400).send('URL contains invalid filename, height or width params!');
         return;
     }
-
   }
 });
-
-
 
 export default images;

@@ -7,22 +7,23 @@ const imageResizedFolder = './images/resized';
 
 const createResizedImage = async (fileName: string, height: number, width: number) => {
 
-    const fullImagePath = path.join('./images', 'original', fileName);
-    const fullResizedImagePath = path.join('./images', 'resized', `${fileName.split('.')[0]}_${height}_${width}.jpg`)
+    const imagePath = path.join('./images', 'original', fileName);
+    const resizedImagePath = path.join('./images', 'resized', `${fileName.split('.')[0]}_${height}_${width}.jpg`)
     
     try {
-      if (fs.existsSync(fullImagePath) && !fs.existsSync(fullResizedImagePath)){
+      if (fs.existsSync(imagePath) && !fs.existsSync(resizedImagePath)){
         console.log('Create a new resized image')
-        await sharp(fullImagePath)
+        await sharp(imagePath)
         .resize(
           height,
           width
         )
-        .toFile(fullResizedImagePath)
+        .toFile(resizedImagePath)
         console.log("Success"); 
       }
-      return fullResizedImagePath;
+      return resizedImagePath;
     } catch (error) {
+      console.log('Creating a new resized image failed')
       console.log("Error occured", error);
       return '';
     };  
