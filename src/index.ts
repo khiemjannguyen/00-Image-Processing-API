@@ -1,6 +1,6 @@
 import express from "express";
 import routes from "./routes/api";
-import resizeImage from "./utilities/resizeImage";
+import resizeImage from "./utilities/createResizedImage";
 
 const app = express();
 const port = 3000;

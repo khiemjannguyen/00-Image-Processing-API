@@ -1,4 +1,4 @@
-import resizeImage from '../utilities/resizeImage';
+import resizeImage from '../utilities/createResizedImage';
 
 describe('Tests for image manipulation', () => {
     const imageName = 'test.jpg';
