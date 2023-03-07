@@ -7,8 +7,8 @@ images.get("/", (req, res) => {
   res.send("Image route");
   try {
     const fileName = req.query.filename as string;
-    const height = req.query.height as unknown as number;
-    const width = req.query.width as unknown as number;
+    const height = parseInt(req.query.height as unknown as string);
+    const width = parseInt(req.query.width as unknown as string);
   
     createResizedImage(fileName, height, width)
     

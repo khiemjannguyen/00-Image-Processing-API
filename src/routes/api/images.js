@@ -10,11 +10,8 @@ images.get("/", (req, res) => {
     res.send("Image route");
     try {
         const fileName = req.query.filename;
-        const height = req.query.height;
-        const width = req.query.width;
-        console.log(req.query);
-        console.log(height);
-        console.log(width);
+        const height = parseInt(req.query.height);
+        const width = parseInt(req.query.width);
         (0, createResizedImage_1.default)(fileName, height, width);
     }
     catch (error) {
