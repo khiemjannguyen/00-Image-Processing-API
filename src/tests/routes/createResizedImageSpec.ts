@@ -1,54 +1,74 @@
 import request from 'supertest';
-import fs from 'fs/promises';
+import {promises as fsPromises} from 'fs';
 import path from 'path';
-import app from '../..';
+import app from '../../index';
 import sizeOf from 'image-size';
 import { Stats } from 'fs';
 
-describe('Test different aspects of createResizedImage function', () => {
+describe('Test different aspects of image route', () => {
 
-    const testImagePath = '../images/resized/fjord_111_111.jpg'
-    const testImageRoute = '/api/images'
+    const height = 200;
+    const width = 300;
+    const testImageRoute = '/api/images';
+    const testImageQuery = `?filename=test.jpg&height=${height}&width=${width}`;
+    const testImagePath = `./images/resized/test_${height}_${width}.jpg`;
 
-    it('creates a resized version of a test image', (done): void => {
+    afterEach ( async () => {
+        try {
+            await fsPromises.unlink(path.resolve( '.', 'images', 'resized', `test_${height}_${width}.jpg`));
+            console.log("Delete File successfully.");
+          } catch (error) {
+            console.log(error);
+          }
+    })
+
+    it('calls a resized image correctly and responds with 200', (done): void => {
         request(app)
-            .get('/api/images?filename=fjord&height=111&width=111')
-            .then(() => {
-                fs.stat(path.resolve(testImagePath)).then((fileStat: Stats) =>
-                    expect(fileStat).not.toBeNull(),
-                );
-                done();
-            });
+            .get(testImageRoute + testImageQuery)
+            expect(200);
+            done();
+    });
+
+    it('calls without parameters and responds with 400', (done): void => {
+        request(app)
+            .get(testImageRoute)
+            expect(400);
+            done();
+    });
+
+    it('calls with one missing param and responds with 400', (done): void => {
+        request(app)
+            .get(testImageRoute + '?filename=test.jpg&height=200')
+            expect(400);
+            done();
+    });
+
+    it('calls correctly but image does not exist and responds with 404', (done): void => {
+        request(app)
+            .get(testImageRoute + '?filename=non.jpg&height=200&width=200')
+            expect(400);
+            done();
     });
 
     it('creates a resized version of a test image with the correct height and width', (done): void => {
         request(app)
-            .get('/api/images?filename=fjord&height=100&width=150')
+            .get(testImageRoute + testImageQuery)
             .then(() => {
-                const dimensions = sizeOf(path.resolve(testImagePath));
-                expect(dimensions.height).toEqual(100);
-                expect(dimensions.width).toEqual(150);
-                done();
+                const dimensions = sizeOf(testImagePath)
+                expect(dimensions.height).toEqual(height)
+                expect(dimensions.width).toEqual(width)
             });
+            done();
     });
 
-    it('responds with 400 if called without parameters', (done): void => {
-        request(app).get('/api/images').expect(400, done);
+    it('creates a resized version of a test image', (done): void => {
+        request(app)
+            .get(testImageRoute + testImageQuery)
+            .then(() => {
+                fsPromises.stat(path.resolve(testImagePath)).then((fileStat: Stats) =>
+                    expect(fileStat).not.toBeNull(),
+                );
+            });
+            done();
     });
-
-    it('responds with 400 if called with a missing parameter', (done): void => {
-        request(app).get(testImageRoute + '?filename=test.jpg&height=100').expect(400, done);
-    });
-
-    it('responds with 404 if called correctly but image does not exist', (done): void => {
-        request(app).get(testImageRoute + '?filename=non.jpg&height=100&width=100').expect(404, done);
-    });
-
-    it('responds with 200 if called correctly and image exist', (done): void => {
-        request(app).get(testImageRoute + '?filename=test.jpg&height=100&width=100').expect(200, done);
-    });
-
-
-
-    
 });

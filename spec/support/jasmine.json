@@ -1,6 +1,6 @@
 {
-    "spec dir": "src/tests",
-    "spec files": [
+    "spec_dir": "build/tests",
+    "spec_files": [
         "**/*[sS]pec.js"
     ], 
     "helpers": [

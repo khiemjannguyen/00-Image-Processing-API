@@ -10,6 +10,10 @@ const imageName = 'fjord.jpg';
 
 app.use('/api', routes)
 
+app.get('/', (_, res): void => {
+  res.status(200).send('Server is working!');
+});
+
 app.listen(port, () => {
 
   const resizedPath = path.resolve(__dirname, '../images/resized');
