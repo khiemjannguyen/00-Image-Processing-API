@@ -9,7 +9,7 @@
     "test": "npm run build && npm run jasmine",
     "start": "nodemon src/index.ts",
     "dev": "npm run build && npm run start",
-    "prettier": "prettier --config .prettierrc 'src/**/*.js' --write",
+    "prettier": "prettier --config .prettierrc 'src/**/*' --write",
     "lint": "eslint . --ext .ts"
   },
   "keywords": [],
