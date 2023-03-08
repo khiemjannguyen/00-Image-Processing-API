@@ -22,6 +22,7 @@ const createResizedImage = async (fileName: string, height: number | null, width
       .toFile(resizedImagePath);
       console.log("Success"); 
     } 
+    console.log(resizedImagePath)
     return resizedImagePath;
   };
 

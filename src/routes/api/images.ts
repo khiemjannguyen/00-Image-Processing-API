@@ -6,6 +6,7 @@ import containsNumbers from "../../utilities/validation";
 const images = express.Router();
 
 images.get('/', async (req, res) => {
+  
   const fileName = req.query.filename as string;
   const height = containsNumbers(req.query.height as unknown as string) ? parseInt(req.query.height as unknown as string) : null;
   const width = containsNumbers(req.query.width as unknown as string) ? parseInt(req.query.width as unknown as string) : null;

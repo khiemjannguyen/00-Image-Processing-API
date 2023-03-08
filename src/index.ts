@@ -6,8 +6,6 @@ import fs from 'fs';
 const app = express();
 const port = 3000;
 
-const imageName = 'fjord.jpg';
-
 app.use('/api', routes)
 
 app.get('/', (_, res): void => {
