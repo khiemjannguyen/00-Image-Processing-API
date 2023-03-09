@@ -2,9 +2,6 @@ import sharp from 'sharp'
 import path from 'path'
 import fs from 'fs'
 
-const imageOriginalFolder = './images/original'
-const imageResizedFolder = './images/resized'
-
 const createResizedImage = async (
     fileName: string,
     height: number | null,
@@ -22,7 +19,6 @@ const createResizedImage = async (
     }
     if (fs.existsSync(imagePath) && !fs.existsSync(resizedImagePath)) {
         await sharp(imagePath).resize(height, width).toFile(resizedImagePath)
-        console.log('Success')
     }
     console.log(resizedImagePath)
     return resizedImagePath
