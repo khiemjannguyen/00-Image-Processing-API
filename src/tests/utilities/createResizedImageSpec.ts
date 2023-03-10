@@ -8,10 +8,11 @@ describe('Tests createResizedImage', function () {
     const width = 300
     const testImagePath = `images/resized/test_${height}_${width}.jpg`
 
-    it('returns the path of the created image', async () => {
-        expect(await createResizedImage(fileName, height, width)).toBe(
-            testImagePath
-        )
-        await fsPromises.unlink(path.resolve(testImagePath))
+    it('returns the path of the created image', (): void => {
+        createResizedImage(fileName, height, width)
+            .then((value) => {
+                expect(value).toEqual(testImagePath)
+        })
+        fsPromises.unlink(testImagePath)
     })
 })

@@ -15,7 +15,7 @@ describe('Test different aspects of image route', () => {
         const testImagePath = `./images/resized/test_${height}_${width}.jpg`
         request(app).get(testImageRoute + testImageQuery)
         expect(200)
-        fsPromises.unlink(path.resolve(testImagePath))
+        fsPromises.unlink(testImagePath)
     })
 
     it('creates a resized version of a test image with the correct height and width', (): void => {
@@ -30,7 +30,7 @@ describe('Test different aspects of image route', () => {
                 expect(dimensions.height).toEqual(height)
                 expect(dimensions.width).toEqual(width)
             })
-        fsPromises.unlink(path.resolve(testImagePath))
+        fsPromises.unlink(testImagePath)
     })
 
     it('creates a resized version of a test image', (): void => {
@@ -45,7 +45,7 @@ describe('Test different aspects of image route', () => {
                     .stat(path.resolve(testImagePath))
                     .then((fileStat: Stats) => expect(fileStat).not.toBeNull())
             })
-        fsPromises.unlink(path.resolve(testImagePath))
+        fsPromises.unlink(testImagePath)
     })
 })
 
