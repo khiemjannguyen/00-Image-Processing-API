@@ -1,5 +1,4 @@
 import { promises as fsPromises } from 'fs'
-import path from 'path'
 import createResizedImage from '../../utilities/createResizedImage'
 
 describe('Tests createResizedImage', function () {
